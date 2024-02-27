@@ -1,0 +1,21 @@
+{
+  "files.associations": {
+    "string": "cpp",
+    "__split_buffer": "cpp",
+    "deque": "cpp",
+    "list": "cpp",
+    "vector": "cpp",
+    "regex": "cpp",
+    "ostream": "cpp",
+    "__bit_reference": "cpp",
+    "__hash_table": "cpp",
+    "__tree": "cpp",
+    "map": "cpp",
+    "set": "cpp",
+    "string_view": "cpp",
+    "unordered_map": "cpp",
+    "unordered_set": "cpp",
+    "ios": "cpp",
+    "valarray": "cpp"
+  }
+}
