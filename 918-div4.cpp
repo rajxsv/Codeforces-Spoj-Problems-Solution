@@ -24,48 +24,48 @@ bool prime(ll a) { if (a==1) return 0; for (int i=2;i<=round(sqrt(a));++i) if (a
 void yes() { cout<<"YES\n"; }
 void no() { cout<<"NO\n"; }
 
-ll dp[20][2][4];
-
-ll digitDP(string &s, int idx, int tight, int cnt) {
-  if(idx==s.size()) return 1;
-  if(dp[idx][tight][cnt] != -1) return dp[idx][tight][cnt];
-
-  int limit = tight==0?9:s[idx]-'0';
-  int ans = 0;
-
-  for(int i=0; i<=limit; i++) {
-    int updatedCnt = cnt + (i!=0);
-    if(updatedCnt <= 3) {
-      ans += digitDP(s,idx+1,tight&(i==s[idx]-'0'),updatedCnt);
-    }
-  }
-  return dp[idx][tight][cnt] = ans;
-}
-
 void solve() {
+    vector<vector<char>> mat(3,vector<char>(3));
+    int a=0,b=0,c=0;
 
-  ll l,r;
-  string ls,rs;
-  cin >> l >> r;
-  ls = to_string(l-1);
-  rs = to_string(r);  
-  memset(dp,-1,sizeof(dp));
-  ll right = digitDP(rs,0,1,0);
-  memset(dp,-1,sizeof(dp));
-  ll left = digitDP(ls,0,1,0);
+    for(int i=0;i<3;i++) {
+        for(int j=0;j<3;j++) {
+            cin >> mat[i][j];
+        }
+    }
 
-  cout << right - left << endl;
+    for(int i=0;i<3;i++) {
+        for(int j=0;j<3;j++) {
+            char ch=mat[i][j];
+            a = (ch=='A'?1:a);
+            b = (ch=='B'?1:b);
+            c = (ch=='C'?1:c);
+        }
+        if(!a) {
+            cout << 'A' << endl;
+            return;
+        }
+        if(!b) {
+            cout << 'B' << endl;
+            return;
+        }
+        if(!c) {
+            cout << 'C' << endl;
+            return;
+        }
+        a=0,b=0,c=0;
+    }
+}   
 
-}
+int main()
+{
 
-int main() {
+    int t;
+    cin >> t;
 
-  int t;
-  cin >> t;
-
-  while(t--){
-    solve();
-  }
-  return 0;
+    while(t--){
+        solve();
+    }
+    return 0;
 
 }
