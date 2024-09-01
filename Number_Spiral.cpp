@@ -9,7 +9,6 @@ using namespace std;
 
 template <class T>
 void print_v(vector<T> &v) { cout << "{"; for (auto x : v) cout << x << ","; cout << "\b}"; }
-
 #define MOD 1000000007
 #define PI 3.1415926535897932384626433832795
 ll min(ll a,int b) { if (a<b) return a; return b; }
@@ -24,48 +23,53 @@ bool prime(ll a) { if (a==1) return 0; for (int i=2;i<=round(sqrt(a));++i) if (a
 void yes() { cout<<"YES\n"; }
 void no() { cout<<"NO\n"; }
 
-ll dp[20][2][4];
-
-ll digitDP(string &s, int idx, int tight, int cnt) {
-  if(idx==s.size()) return 1;
-  if(dp[idx][tight][cnt] != -1) return dp[idx][tight][cnt];
-
-  int limit = tight==0?9:s[idx]-'0';
-  int ans = 0;
-
-  for(int i=0; i<=limit; i++) {
-    int updatedCnt = cnt + (i!=0);
-    if(updatedCnt <= 3) {
-      ans += digitDP(s,idx+1,tight&(i==s[idx]-'0'),updatedCnt);
-    }
-  }
-  return dp[idx][tight][cnt] = ans;
-}
+// odd is decrease, even is incerease in up !
 
 void solve() {
+    ll x,y;
+    cin >> x >> y;
 
-  ll l,r;
-  string ls,rs;
-  cin >> l >> r;
-  ls = to_string(l-1);
-  rs = to_string(r);  
-  memset(dp,-1,sizeof(dp));
-  ll right = digitDP(rs,0,1,0);
-  memset(dp,-1,sizeof(dp));
-  ll left = digitDP(ls,0,1,0);
+    ll diag = max(x,y);
+    int f = diag%2;
+    ll max = diag*diag;
+    ll start = max - (diag+diag-1) + 1;
+    ll diagEle = (max+start) / 2;
 
-  cout << right - left << endl;
+    if (f==1) {
+        // up decrease 
+        if (x>y) {
+            // need to change y 
+            ll diffY = diag-y;
+            diagEle -= diffY;
+        } else {
+            // need to change x
+            ll diffX = diag-x;
+            diagEle += diffX;
+        }
+    } else {
+        // up increase
+        if (x>y) {
+            ll diffY = diag-y;
+            diagEle += diffY;
+        } else {
+            // need to change x
+            ll diffX = diag-x;
+            diagEle -= diffX;
+        }
+    }
 
+    cout << diagEle << endl;
 }
 
-int main() {
+int main()
+{
 
-  int t;
-  cin >> t;
+    int t;
+    cin >> t;
 
-  while(t--){
-    solve();
-  }
-  return 0;
+    while(t--){
+        solve();
+    }
+    return 0;
 
 }

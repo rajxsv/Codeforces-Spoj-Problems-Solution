@@ -24,48 +24,50 @@ bool prime(ll a) { if (a==1) return 0; for (int i=2;i<=round(sqrt(a));++i) if (a
 void yes() { cout<<"YES\n"; }
 void no() { cout<<"NO\n"; }
 
-ll dp[20][2][4];
-
-ll digitDP(string &s, int idx, int tight, int cnt) {
-  if(idx==s.size()) return 1;
-  if(dp[idx][tight][cnt] != -1) return dp[idx][tight][cnt];
-
-  int limit = tight==0?9:s[idx]-'0';
-  int ans = 0;
-
-  for(int i=0; i<=limit; i++) {
-    int updatedCnt = cnt + (i!=0);
-    if(updatedCnt <= 3) {
-      ans += digitDP(s,idx+1,tight&(i==s[idx]-'0'),updatedCnt);
-    }
-  }
-  return dp[idx][tight][cnt] = ans;
-}
-
 void solve() {
 
-  ll l,r;
-  string ls,rs;
-  cin >> l >> r;
-  ls = to_string(l-1);
-  rs = to_string(r);  
-  memset(dp,-1,sizeof(dp));
-  ll right = digitDP(rs,0,1,0);
-  memset(dp,-1,sizeof(dp));
-  ll left = digitDP(ls,0,1,0);
+    int n, q;
+    string s;
+    vector<char> nodeChar(n+1);
+    unordered_map<int,unordered_map<int,int>> um;
 
-  cout << right - left << endl;
+    cin >> n >> q >> s;
+
+    for (int i=0; i<s.size(); i++) {
+        nodeChar[i+1] = s[i];
+    }
+
+    for (int i=0; i<n; i++) {
+        um[i+1][nodeChar[i+1]-'a'] = 1;
+    }
+
+    for (int i=0; i<n-1; i++) {
+        int u, v;
+        cin >> u >> v;
+        
+        um[u][nodeChar[v]-'a']++;
+    }
+
+    for (int i=0; i<q; i++) {
+        int node;
+        char ch;
+
+        cin >> node >> ch;
+
+        cout << um[node][ch-'a'] << endl;
+    }
 
 }
 
-int main() {
+int main()
+{
 
-  int t;
-  cin >> t;
+    int t = 1;
+    // cin >> t;
 
-  while(t--){
-    solve();
-  }
-  return 0;
+    while(t--){
+        solve();
+    }
+    return 0;
 
 }

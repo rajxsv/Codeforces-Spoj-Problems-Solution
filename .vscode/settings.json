@@ -16,6 +16,11 @@
     "unordered_map": "cpp",
     "unordered_set": "cpp",
     "ios": "cpp",
-    "valarray": "cpp"
-  }
+    "valarray": "cpp",
+    "queue": "cpp",
+    "stack": "cpp",
+    "iostream": "cpp",
+    "iosfwd": "cpp"
+  },
+  "C_Cpp.default.compilerPath": "/usr/bin/g++"
 }
